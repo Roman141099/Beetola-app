@@ -20,7 +20,6 @@ public class CurrencyConversionServiceToBuy extends CurrencyConversionService {
     public CurrencyConversionRs buildResult(BigDecimal result, BigDecimal commission) {
         BigDecimal resultWithCommission = result.add(commission);
         return new CurrencyConversionRs()
-                .summary("")
                 .amount(resultWithCommission)
                 .commission(commission);
     }

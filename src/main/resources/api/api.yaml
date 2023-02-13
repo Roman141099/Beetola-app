@@ -109,12 +109,9 @@ components:
     CurrencyConversionRs:
       type: object
       required:
-        - summary
         - amount
         - commission
       properties:
-        summary:
-          type: string
         amount:
           type: number
         commission:
