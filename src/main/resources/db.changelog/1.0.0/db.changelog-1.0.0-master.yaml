@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - include:
+      file: tables/db.changelog-tables.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: data/db.changelog_currency_rate_test_data.sql
+      relativeToChangelogFile: true
+      context: test
