@@ -2,13 +2,29 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '2.7.8'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id "org.openapi.generator" version "5.1.0"
 }
+
+openApiGenerate {
+    inputSpec = "$rootDir/src/main/resources/api/api.yaml".toString()
+    outputDir = "$buildDir/generated".toString()
+    generatorName = "spring"
+    library = "spring-boot"
+    apiPackage = "org.beetola.app.rest"
+    modelPackage = "org.beetola.app.model.dto"
+    configOptions = [
+            interfaceOnly: "true"
+    ]
+}
+
 
 repositories {
     mavenLocal()
+    mavenCentral()
     maven {
-        url = uri('https://repo.maven.apache.org/maven2/')
+        url "https://plugins.gradle.org/m2/"
     }
+
 }
 
 dependencies {
@@ -18,6 +34,7 @@ dependencies {
     implementation 'org.liquibase:liquibase-core'
     implementation 'org.projectlombok:lombok'
     implementation 'io.springfox:springfox-boot-starter:3.0.0'
+    annotationProcessor 'org.projectlombok:lombok'
     implementation 'org.hibernate.validator:hibernate-validator'
     implementation 'org.openapitools:jackson-databind-nullable:0.2.4'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
@@ -32,6 +49,12 @@ java.sourceCompatibility = JavaVersion.VERSION_11
 java.targetCompatibility = JavaVersion.VERSION_11
 
 
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
+sourceSets {
+    main {
+        java {
+            srcDir("$buildDir/generated/src/main/java".toString())
+        }
+    }
 }
+
+compileJava.dependsOn "openApiGenerate"
