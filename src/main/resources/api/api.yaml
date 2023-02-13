@@ -15,33 +15,32 @@ paths:
       summary: conversion endpoint for currency amount
       operationId: convertToSellSome
       description: |
-        By passing in the appropriate options, you can search for
-        available inventory in the system
+        Calculates what amount of 'to' currency you will get if you sell 'amount' of 'from' currency
       parameters:
         - in: query
           name: from
-          description: from what currency you want to convert
+          description: what currency type do you have
           required: true
           schema:
             type: string
             pattern: '[A-Z]{3}'
         - in: query
           name: to
-          description: to what currency you want to convert
+          description: what currency type you want to get
           required: true
           schema:
             type: string
             pattern: '[A-Z]{3}'
         - in: query
           name: amount
-          description: amount to sell money of "parameters.from" currency
+          description: amount to sell money of 'from' currency
           required: true
           schema:
             type: number
             minimum: 1
       responses:
         '200':
-          description: currency conversion result
+          description: conversion response
           content:
             application/json:
               schema:
@@ -63,31 +62,32 @@ paths:
       summary: conversion endpoint for currency amount
       operationId: convertToBuySome
       description: |
-        By passing in the appropriate options, you can search for
-        available inventory in the system
+        Calculates what amount of 'from' currency you need to buy 'amount' of 'to' currency
       parameters:
         - in: query
           name: from
-          description: from what currency code you want to convert
+          description: what currency type do you have
           required: true
           schema:
             type: string
+            pattern: '[A-Z]{3}'
         - in: query
           name: to
-          description: to what currency code you want to convert
+          description: what currency type you want to get
           required: true
           schema:
             type: string
+            pattern: '[A-Z]{3}'
         - in: query
           name: amount
-          description: amount to by of "parameters.to" currency
+          description: amount of 'to' currency you want to buy
           required: true
           schema:
             type: number
             minimum: 1
       responses:
         '200':
-          description: search results matching criteria
+          description: conversion response
           content:
             application/json:
               schema:
