@@ -18,10 +18,10 @@ public class CurrencyConversionServiceToBuy extends CurrencyConversionService {
 
     @Override
     public CurrencyConversionRs buildResult(BigDecimal result, BigDecimal commission) {
-        BigDecimal finalCost = result.add(commission);
+        BigDecimal resultWithCommission = result.add(commission);
         return new CurrencyConversionRs()
                 .summary("")
-                .amount(finalCost)
+                .amount(resultWithCommission)
                 .commission(commission);
     }
 }
