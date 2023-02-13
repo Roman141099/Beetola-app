@@ -1,0 +1,39 @@
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  liquibase:
+    enabled: true
+    change-log: db.changelog/db.changelog-master.yaml
+    liquibase-schema: liquibase
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format-sql: true
+  datasource:
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DATABASE_TO_LOWER=true;CASE_INSENSITIVE_IDENTIFIERS=true;MODE=PostgreSQL;INIT=CREATE SCHEMA IF NOT EXISTS "liquibase"
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+      path: /h2
+margin-percent: 2
+springfox:
+  documentation:
+    swagger-ui:
+      base-url: documentation
+integration:
+  apilayer:
+    base-uri: 'https://api.apilayer.com'
+    live-currency-rates-path: 'currency_data/live'
+    query-params:
+      source: GBP
+    headers:
+      apikey: ${APILAYER_API_KEY:Om3F70diVBwcNxhMlbyRkBpSD7uRa4Ac}
