@@ -6,7 +6,6 @@ spring:
     enabled: true
     change-log: db.changelog/db.changelog-master.yaml
     liquibase-schema: liquibase
-    contexts: "!test"
   jpa:
     show-sql: false
     hibernate:
