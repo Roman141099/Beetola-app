@@ -7,6 +7,7 @@ import org.beetola.app.model.dto.ServerError;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import javax.validation.ConstraintViolationException;
 
@@ -20,8 +21,8 @@ public class AppExceptionHandler {
         return ResponseEntity.badRequest().body(new InvalidInputRs().message(ex.getMessage()));
     }
 
-    @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<?> handleConstraintViolation(ConstraintViolationException ex) {
+    @ExceptionHandler({ConstraintViolationException.class, MethodArgumentTypeMismatchException.class})
+    public ResponseEntity<?> handleConstraintViolation(RuntimeException ex) {
         log.debug("Bad input: {}", ex.getMessage(), ex);
         return ResponseEntity.badRequest().body(new InvalidInputRs().message("Bad input parameters!"));
     }
