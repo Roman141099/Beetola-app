@@ -2,10 +2,12 @@ package org.beetola.app.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.beetola.app.exception.WebException;
 import org.beetola.app.model.dto.CurrencyRateRs;
 import org.beetola.app.service.CurrencyIntegrationService;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +31,10 @@ public class ApiLayerCurrencyIntegrationService implements CurrencyIntegrationSe
                         .queryParams(new LinkedMultiValueMap<>(queryParams))
                         .build())
                 .retrieve()
+                .onStatus(httpStatus ->
+                        httpStatus.value() > 200, clientResponse ->
+                        Mono.error(new WebException("ApiLayer returned bad response",
+                                clientResponse.statusCode(), clientResponse.statusCode().getReasonPhrase())))
                 .bodyToMono(CurrencyRateRs.class)
                 .block();
         return validatedResponse(rs);
