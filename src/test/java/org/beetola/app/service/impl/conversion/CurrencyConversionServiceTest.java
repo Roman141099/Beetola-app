@@ -62,7 +62,7 @@ public class CurrencyConversionServiceTest {
         assertThatThrownBy(() -> serviceToSell.exchange("ABC", "ABC", BigDecimal.valueOf(0.9)))
                 .isInstanceOf(ConstraintViolationException.class)
                 .hasMessageContaining("exchange.amount")
-                .hasMessageContaining("быть больше, чем или равно 1");
+                .hasMessageContaining("greater than or equal to 1");
     }
 
     @Test
@@ -70,7 +70,7 @@ public class CurrencyConversionServiceTest {
         assertThatThrownBy(() -> serviceToSell.exchange("TEST", "ABC", BigDecimal.ONE))
                 .isInstanceOf(ConstraintViolationException.class)
                 .hasMessageContaining("exchange.from")
-                .hasMessageContaining("должно соответствовать");
+                .hasMessageContaining("must match");
     }
 
     @Test
