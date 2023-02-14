@@ -69,7 +69,7 @@ public class CurrencyConversionServiceTest {
     public void testCurrencyInvalid() {
         assertThatThrownBy(() -> serviceToSell.exchange("TEST", "ABC", BigDecimal.ONE))
                 .isInstanceOf(ConstraintViolationException.class)
-                .hasMessage("exchange.from")
+                .hasMessageContaining("exchange.from")
                 .hasMessageContaining("должно соответствовать");
     }
 
