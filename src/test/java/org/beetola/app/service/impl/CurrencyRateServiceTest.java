@@ -2,10 +2,7 @@ package org.beetola.app.service.impl;
 
 import org.beetola.app.model.domain.CurrencyRate;
 import org.beetola.app.service.CurrencyRateService;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +19,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringBootTest
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CurrencyRateServiceTest {
 
     @Autowired
@@ -39,7 +35,6 @@ public class CurrencyRateServiceTest {
     }
 
     @Test
-    @Order(1)
     @Transactional//For rollback after saving
     public void testInsertNewRate() {
         String id = "ABC";
