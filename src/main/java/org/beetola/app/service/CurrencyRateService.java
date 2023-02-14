@@ -16,4 +16,6 @@ public interface CurrencyRateService {
                                   @DecimalMin("0")
                                   @DecimalSize(maxPrecision = 20, maxScale = 4) BigDecimal coefficient);
 
+    void updateCurrencyRates();
+
 }
