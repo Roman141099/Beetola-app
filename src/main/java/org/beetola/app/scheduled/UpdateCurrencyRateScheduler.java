@@ -18,7 +18,7 @@ public class UpdateCurrencyRateScheduler {
     private final CurrencyRateService currencyRateService;
 
     @EventListener(ApplicationReadyEvent.class)
-    @Scheduled(cron = "${app.scheduling.update-currency-rates.cron:0 0 12 * * *}")
+    @Scheduled(cron = "${app.scheduling.update-currency-rates.cron:0 0 */12 * * *}")
     public void updateCurrencies() {
         currencyRateService.updateCurrencyRates();
         log.info("Currencies SUCCESSFULLY UPLOADED");
